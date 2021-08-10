@@ -18,6 +18,10 @@ namespace StudentManagementSystem.Models
         [Required]
         [Display(Name ="Student Name")]
         public string StudentName { get; set; }
+        [Required]
+        [Display(Name = "Address")]
+        public string Address { get; set; }
+
 
         [Required]
         [Display(Name = "Admission Date")]

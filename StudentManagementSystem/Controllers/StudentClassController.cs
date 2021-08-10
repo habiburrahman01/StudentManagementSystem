@@ -11,7 +11,7 @@ using StudentManagementSystem.Models;
 
 namespace StudentManagementSystem.Controllers
 {
-    [Authorize(Roles = "Admin")]
+
     public class StudentClassController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -20,14 +20,16 @@ namespace StudentManagementSystem.Controllers
         {
             _context = context;
         }
-
+ 
         // GET: StudentClass
+       
         public async Task<IActionResult> Index()
         {
             return View(await _context.StudentClasses.ToListAsync());
         }
 
         // GET: StudentClass/Details/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,6 +48,7 @@ namespace StudentManagementSystem.Controllers
         }
 
         // GET: StudentClass/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             return View();
@@ -56,6 +59,7 @@ namespace StudentManagementSystem.Controllers
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
         [ValidateAntiForgeryToken]
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Create([Bind("Id,ClassName")] StudentClass studentClass)
         {
             if (ModelState.IsValid)
@@ -68,6 +72,7 @@ namespace StudentManagementSystem.Controllers
         }
 
         // GET: StudentClass/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -87,7 +92,7 @@ namespace StudentManagementSystem.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> Edit(int id, [Bind("Id,ClassName")] StudentClass studentClass)
         {
@@ -120,6 +125,7 @@ namespace StudentManagementSystem.Controllers
         }
 
         // GET: StudentClass/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -139,7 +145,7 @@ namespace StudentManagementSystem.Controllers
 
         // POST: StudentClass/Delete/5
         [HttpPost, ActionName("Delete")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {

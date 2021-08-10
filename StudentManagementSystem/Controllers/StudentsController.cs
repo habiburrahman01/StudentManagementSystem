@@ -11,7 +11,7 @@ using StudentManagementSystem.Models;
 
 namespace StudentManagementSystem.Controllers
 {
-     [Authorize(Roles ="Admin")]
+    
     public class StudentsController : Controller
     {
         private readonly ApplicationDbContext _context;
@@ -22,13 +22,15 @@ namespace StudentManagementSystem.Controllers
         }
 
         // GET: Students
+
         public async Task<IActionResult> Index()
         {
             var applicationDbContext = _context.Students.Include(s => s.StudentClass);
             return View(await applicationDbContext.ToListAsync());
         }
 
-        // GET: Students/Details/5
+        // GET: Students/Details/
+        [Authorize(Roles ="Admin")]
         public async Task<IActionResult> Details(int? id)
         {
             if (id == null)
@@ -46,8 +48,9 @@ namespace StudentManagementSystem.Controllers
 
             return View(student);
         }
-
+        
         // GET: Students/Create
+        [Authorize(Roles = "Admin")]
         public IActionResult Create()
         {
             ViewData["Class"] = new SelectList(_context.StudentClasses, "Id", "Id");
@@ -58,9 +61,9 @@ namespace StudentManagementSystem.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Create([Bind("Id,StudentName,AdmissionDate,Class")] Student student)
+        public async Task<IActionResult> Create([Bind("Id,StudentName,Address,AdmissionDate,Class")] Student student)
         {
             if (ModelState.IsValid)
             {
@@ -73,6 +76,7 @@ namespace StudentManagementSystem.Controllers
         }
 
         // GET: Students/Edit/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Edit(int? id)
         {
             if (id == null)
@@ -93,9 +97,9 @@ namespace StudentManagementSystem.Controllers
         // To protect from overposting attacks, enable the specific properties you want to bind to.
         // For more details, see http://go.microsoft.com/fwlink/?LinkId=317598.
         [HttpPost]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
-        public async Task<IActionResult> Edit(int id, [Bind("Id,StudentName,AdmissionDate,Class")] Student student)
+        public async Task<IActionResult> Edit(int id, [Bind("Id,StudentName,Address,AdmissionDate,Class")] Student student)
         {
             if (id != student.Id)
             {
@@ -127,6 +131,7 @@ namespace StudentManagementSystem.Controllers
         }
 
         // GET: Students/Delete/5
+        [Authorize(Roles = "Admin")]
         public async Task<IActionResult> Delete(int? id)
         {
             if (id == null)
@@ -147,7 +152,7 @@ namespace StudentManagementSystem.Controllers
 
         // POST: Students/Delete/5
         [HttpPost, ActionName("Delete")]
-        [Authorize]
+        [Authorize(Roles = "Admin")]
         [ValidateAntiForgeryToken]
         public async Task<IActionResult> DeleteConfirmed(int id)
         {
