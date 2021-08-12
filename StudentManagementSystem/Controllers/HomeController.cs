@@ -13,21 +13,21 @@ namespace StudentManagementSystem.Controllers
 {
     public class HomeController : Controller
     {
-        private readonly ILogger<HomeController> _logger;
-
-        public HomeController(ILogger<HomeController> logger)
-        {
-            _logger = logger;
-        }
-
         private readonly ApplicationDbContext _context;
 
-  
-        public  IActionResult Index()
+        public HomeController(ApplicationDbContext context)
         {
-           
-            return View();
+            _context = context;
         }
+
+        // GET: Students
+
+        public async Task<IActionResult> Index()
+        {
+            var applicationDbContext = _context.Students.Include(s => s.StudentClass);
+            return View(await applicationDbContext.ToListAsync());
+        }
+
 
 
         [ResponseCache(Duration = 0, Location = ResponseCacheLocation.None, NoStore = true)]

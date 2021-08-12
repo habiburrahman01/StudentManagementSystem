@@ -30,6 +30,7 @@ namespace StudentManagementSystem.Models
         [Required]
         [Display(Name = "Class")]
         public int Class { get; set; }
+      
         public StudentClass StudentClass { get; set; }
 
     }

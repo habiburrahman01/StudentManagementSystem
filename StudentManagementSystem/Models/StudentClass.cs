@@ -15,7 +15,7 @@ namespace StudentManagementSystem.Models
 
         //Column data type define in the dbContext class using ModelBuilder 
         [Required]
-        [Display(Name = "Classs Name")]
+        [Display(Name = "Class Name")]
         public string ClassName { get; set; }
 
         public ICollection<Student> Students { get; set; }

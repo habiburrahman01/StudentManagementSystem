@@ -1,18 +1,28 @@
-﻿
+﻿@model IEnumerable<StudentManagementSystem.Models.Student>
 
 @{
     ViewData["Title"] = "Home Page";
 }
 
 <h1 class="text-center text-success mt-5"> Welcome to Student Management System </h1>
-@*<h2>Student Details</h2>
 
 
+<h2 class="pt-5">Student Details</h2>
+
+<h4 class="float-right">
+    <a asp-controller="Students" asp-action="Create">Add New Student</a>
+</h4>
 <table class="table">
     <thead>
         <tr>
             <th>
+                Sl. No.
+            </th>
+            <th>
                 @Html.DisplayNameFor(model => model.StudentName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Address)
             </th>
             <th>
                 @Html.DisplayNameFor(model => model.AdmissionDate)
@@ -24,24 +34,32 @@
         </tr>
     </thead>
     <tbody>
-        @foreach (var item in Model)
-        {
-            <tr>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StudentName)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.AdmissionDate)
-                </td>
-                <td>
-                    @Html.DisplayFor(modelItem => item.StudentClass.Id)
-                </td>
-                <td>
-                    <a asp-action="Edit" asp-route-id="@item.Id">Edit</a> |
-                    <a asp-action="Details" asp-route-id="@item.Id">Details</a> |
-                    <a asp-action="Delete" asp-route-id="@item.Id">Delete</a>
-                </td>
-            </tr>
+        @{
+            int sn = 1;
+            @foreach (var item in Model)
+            {
+                <tr>
+                    <td>
+                        @sn
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StudentName)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.Address)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.AdmissionDate)
+                    </td>
+                    <td>
+                        @Html.DisplayFor(modelItem => item.StudentClass.ClassName)
+                    </td>
+                 
+                </tr>
+                sn++;
+            }
+
         }
+
     </tbody>
-</table>*@
+</table>
